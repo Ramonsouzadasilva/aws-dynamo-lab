@@ -1,0 +1,237 @@
+@baseUrl = http://localhost:8080
+@jwtToken = 
+
+#################################################
+# AUTENTICAÇÃO
+#################################################
+
+### Registrar Usuário
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "usuario@exemplo.com",
+  "password": "senha123"
+}
+
+###
+
+### Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario@exemplo.com",
+  "password": "senha123"
+}
+
+#################################################
+# GOALS
+#################################################
+
+###
+
+### Criar Meta
+POST {{baseUrl}}/goals
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "title": "Aprender Go com DynamoDB e SQS",
+  "description": "Dominar arquitetura limpa e AWS SDK v2",
+  "start_date": "2026-06-15T00:00:00Z",
+  "end_date": "2026-08-22T23:59:59Z"
+}
+
+###
+
+### Listar Todas as Metas
+GET {{baseUrl}}/goals
+Authorization: Bearer {{jwtToken}}
+
+###
+
+### Listar Metas Ativas
+GET {{baseUrl}}/goals?active=true
+Authorization: Bearer {{jwtToken}}
+
+###
+
+### Buscar Meta por ID
+GET {{baseUrl}}/goals/{{goalId}}
+Authorization: Bearer {{jwtToken}}
+
+###
+
+### Atualizar Meta
+PUT {{baseUrl}}/goals/{{goalId}}
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "title": "Meta Atualizada",
+  "description": "Nova descrição da meta",
+  "start_date": "2026-06-14T00:00:00Z",
+  "end_date": "2026-09-30T23:59:59Z",
+  "is_active": true
+}
+
+###
+
+### Excluir Meta
+DELETE {{baseUrl}}/goals/{{goalId}}
+Authorization: Bearer {{jwtToken}}
+
+#################################################
+# TASKS
+#################################################
+
+###
+
+### Criar Tarefa Simples
+POST {{baseUrl}}/tasks
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "title": "Revisar texto do TCC",
+  "description": "Fazer review detalhado do texto do TCC",
+  "due_date": "2026-06-16T09:00:00Z",
+  "is_recurring": false
+}
+
+###
+
+### Criar Tarefa Vinculada à Meta
+POST {{baseUrl}}/tasks
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "goal_id": "cc24e9a5-7108-4032-915c-a724512de63c",
+  "title": "Estudar AWS SDK v2",
+  "description": "Aprender DynamoDB operations",
+  "due_date": "2026-06-17T10:00:00Z",
+  "is_recurring": false
+}
+
+###
+
+### Criar Tarefa Recorrente
+POST {{baseUrl}}/tasks
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "title": "Treino Diário",
+  "description": "Treino diário na academia",
+  "due_date": "2026-06-16T09:00:00Z",
+  "is_recurring": true
+}
+
+###
+
+### Listar Tarefas
+GET {{baseUrl}}/tasks
+Authorization: Bearer {{jwtToken}}
+
+###
+
+### Listar Tarefas Pendentes
+GET {{baseUrl}}/tasks?status=PENDING
+Authorization: Bearer {{jwtToken}}
+
+###
+
+### Listar Tarefas Em Andamento
+GET {{baseUrl}}/tasks?status=IN_PROGRESS
+Authorization: Bearer {{jwtToken}}
+
+###
+
+### Listar Tarefas por Período
+GET {{baseUrl}}/tasks?start=2026-06-01T00:00:00Z&end=2026-06-30T23:59:59Z
+Authorization: Bearer {{jwtToken}}
+
+###
+
+### Histórico de Tarefas Concluídas
+GET {{baseUrl}}/tasks?completed=true
+Authorization: Bearer {{jwtToken}}
+
+###
+
+### Buscar Tarefa por ID
+GET {{baseUrl}}/tasks/{{taskId}}
+Authorization: Bearer {{jwtToken}}
+
+###
+
+### Atualizar Tarefa → Em Andamento
+PUT {{baseUrl}}/tasks/e86d91f0-cf02-4df8-9267-1448e5e9da0f
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "title": "Revisar PR do colega",
+  "description": "Em revisão",
+  "due_date": "2026-06-16T09:00:00Z",
+  "status": "IN_PROGRESS"
+}
+
+###
+
+### Atualizar Tarefa → Concluída
+PUT {{baseUrl}}/tasks/{{taskId}}
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "title": "Revisar PR do colega",
+  "description": "Code review concluído",
+  "due_date": "2026-06-16T09:00:00Z",
+  "status": "COMPLETED"
+}
+
+###
+
+### Excluir Tarefa
+DELETE {{baseUrl}}/tasks/{{taskId}}
+Authorization: Bearer {{jwtToken}}
+
+#################################################
+# DASHBOARD
+#################################################
+
+###
+
+### Dashboard Geral
+GET {{baseUrl}}/dashboard
+Authorization: Bearer {{jwtToken}}
+
+###
+
+### Tarefas da Semana Atual
+GET {{baseUrl}}/weekly-tasks
+Authorization: Bearer {{jwtToken}}
+
+#################################################
+# HEALTH CHECKS
+#################################################
+
+###
+
+### Health Check
+GET {{baseUrl}}/health
+
+###
+
+### Readiness Check
+GET {{baseUrl}}/ready
+
+#################################################
+# VARIÁVEIS
+#################################################
+
+@goalId =
+@taskId =
