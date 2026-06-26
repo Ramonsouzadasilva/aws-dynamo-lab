@@ -1,0 +1,83 @@
+# ==========================
+# Binaries
+# ==========================
+/bin/
+*.exe
+*.out
+*.test
+
+# ==========================
+# Environment files (NEVER commit secrets)
+# ==========================
+.env
+.env.*
+!.env.example
+*.local.env
+
+# ==========================
+# Go
+# ==========================
+vendor/
+coverage.out
+coverage.html
+
+# Go workspace
+go.work.sum
+
+# ==========================
+# Terraform
+# ==========================
+
+# Terraform cache
+**/.terraform/
+
+# Lock file (versione se quiser reprodutibilidade)
+# Remova o comentário abaixo apenas se NÃO quiser versioná-lo.
+# **/.terraform.lock.hcl
+
+# State files
+*.tfstate
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.backup
+
+# Plan files
+*.tfplan
+plan.out
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Variable files (geralmente possuem segredos)
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform CLI config
+.terraformrc
+terraform.rc
+
+# ==========================
+# LocalStack
+# ==========================
+docker/volume/
+
+# ==========================
+# IDEs
+# ==========================
+.vscode/
+.idea/
+
+# ==========================
+# OS
+# ==========================
+.DS_Store
+Thumbs.db
